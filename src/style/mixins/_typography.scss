@@ -1,0 +1,26 @@
+@use "../variables" as *;
+
+@mixin h1-header--mobile {
+  font-family: $font-main;
+  font-weight: 600;
+  font-size: 14px;
+  color: $color-secondary;
+}
+@mixin h1-header--tablet {
+  font-size: 20px;
+}
+@mixin h1-header--desktop {
+  font-size: 40px;
+}
+@mixin h2-header--mobile {
+  font-family: $font-main;
+  font-weight: 600;
+  font-size: 10px;
+  color: $color-secondary;
+}
+@mixin h2-header--tablet {
+  font-size: 12px;
+}
+@mixin h2-header--desktop {
+  font-size: 16px;
+}

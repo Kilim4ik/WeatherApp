@@ -1,0 +1,59 @@
+@mixin btn($padding, $size: 10px, $family: $font-main, $weight: 500) {
+  background-color: $color-primary;
+  color: $color-main;
+  border: none;
+}
+@mixin btn-main($padding, $size, $family, $weight) {
+  @include btn($padding, $size, $family, $weight);
+  border-radius: 10px;
+}
+@mixin btn-content($padding, $size, $family, $weight) {
+  @include btn($padding, $size, $family, $weight);
+  border-radius: 5px;
+}
+@mixin section-padding(
+  $padding-top-def: 35px,
+  $padding-side-def: 50px,
+  $padding-top-mob: 45px,
+  $padding-side-mob: 70px,
+  $padding-top-tab: 50px,
+  $padding-side-tab: 100px,
+  $padding-top-desk: 80px,
+  $padding-side-desk: 0
+) {
+  padding: $padding-top-def $padding-side-def 0;
+
+  @include media("S") {
+    padding: $padding-top-mob $padding-side-mob 0;
+  }
+  @include media("M") {
+    padding: $padding-top-tab $padding-side-tab 0;
+  }
+  @include media("L") {
+    padding: $padding-top-desk $padding-side-desk 0;
+  }
+}
+
+@mixin margin-center {
+  margin: 0 auto;
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin media($breakpoint) {
+  @if $breakpoint == "S" {
+    @media (min-width: 580px) {
+      @content;
+    }
+  } @else if $breakpoint == "M" {
+    @media (min-width: 834px) {
+      @content;
+    }
+  } @else if $breakpoint == "L" {
+    @media (min-width: 1440px) {
+      @content;
+    }
+  }
+}
