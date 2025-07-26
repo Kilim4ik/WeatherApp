@@ -11,26 +11,22 @@
   @include btn($padding, $size, $family, $weight);
   border-radius: 5px;
 }
-@mixin section-padding(
+@mixin section-padding-top(
   $padding-top-def: 35px,
-  $padding-side-def: 50px,
   $padding-top-mob: 45px,
-  $padding-side-mob: 70px,
   $padding-top-tab: 50px,
-  $padding-side-tab: 100px,
-  $padding-top-desk: 80px,
-  $padding-side-desk: 0
+  $padding-top-desk: 80px
 ) {
-  padding: $padding-top-def $padding-side-def 0;
+  padding-top: $padding-top-def;
 
   @include media("S") {
-    padding: $padding-top-mob $padding-side-mob 0;
+    padding-top: $padding-top-mob;
   }
   @include media("M") {
-    padding: $padding-top-tab $padding-side-tab 0;
+    padding-top: $padding-top-tab;
   }
   @include media("L") {
-    padding: $padding-top-desk $padding-side-desk 0;
+    padding-top: $padding-top-desk;
   }
 }
 
