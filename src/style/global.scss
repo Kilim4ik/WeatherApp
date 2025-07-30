@@ -1,6 +1,6 @@
-@use "./variables" as *;
-@use "./mixins/components" as *;
-@import "normalize.css";
+@use './variables' as *;
+@use './mixins/components' as *;
+@import 'normalize.css';
 * {
   box-sizing: border-box;
 }
@@ -11,16 +11,19 @@ html {
 }
 .container {
   width: 100%;
-  margin: 0 50px;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
 
-  @include media("S") {
-    margin: 0 75px;
+  @include media('S') {
+    width: 380px;
+    padding-left: 0;
+    padding-right: 0;
   }
-  @include media("M") {
-    margin: 0 100px;
+  @include media('M') {
+    width: 634px;
   }
-  @include media("L") {
-    margin: 0 auto;
+  @include media('L') {
     width: 1140px;
   }
 }
