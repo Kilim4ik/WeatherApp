@@ -6,8 +6,12 @@ const bem = createBem("news", styles);
 import NewsItem from "../../components/NewsItem";
 
 const News = () => {
-    const newsShown = 4;
+    const [newsShown, setNewsShown] = useState(4);
     const [news, setNews] = useState([]);
+
+    const handleIncrement = () => {
+        setNewsShown(prev => prev + 4);
+    }
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
@@ -22,10 +26,11 @@ const News = () => {
         <section className={bem("section")}>
             <h1 className={bem("title")}>Interacting with our pets</h1>
             <ul className={bem("list")}>
-                {news.slice(0, newsShown).map((item, index) => {
+                {news.map((item, index) => {
                     return <NewsItem title={item.title} image={item.urlToImage} url={item.url} key={index} />
                 })}
             </ul>
+            <button type="button" onClick={handleIncrement}>see more</button>
         </section>
     )
 }

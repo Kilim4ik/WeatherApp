@@ -4,8 +4,13 @@
     margin: 0;
 }
 
-.news__image {
+.news {
+    &__title {
+        
+    }
+    &__image {
 width: 270px;
 height: 208px;
 border-radius: 10px;
+}
 }
