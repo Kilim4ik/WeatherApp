@@ -6,31 +6,34 @@ const bem = createBem("news", styles);
 import NewsItem from "../../components/NewsItem";
 
 const News = () => {
-    const [newsShown, setNewsShown] = useState(4);
+    const [page, setPage] = useState(1);
     const [news, setNews] = useState([]);
 
-    const handleIncrement = () => {
-        setNewsShown(prev => prev + 4);
+    const handleIncrement = (page) => {
+        setPage(page => page + 1);
     }
+
     useEffect(() => {
         const fetchData = async () => {
-            const data = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
-            const json = await data.json();
-            console.log(json);
-            setNews(json.articles);
+            const response = await fetch(`https://newsapi.org/v2/everything?q=weather&pageSize=4&page=${page}&apiKey=${API_KEY}`);
+            const data = await response.json();
+            console.log(data);
+            setNews(data.articles);
         }
         fetchData();
-    }, [])
+    }, [page])
 
     return (
         <section className={bem("section")}>
-            <h1 className={bem("title")}>Interacting with our pets</h1>
+            <div className="container">
+                            <h1 className={bem("title")}>Interacting with our pets</h1>
             <ul className={bem("list")}>
                 {news.map((item, index) => {
                     return <NewsItem title={item.title} image={item.urlToImage} url={item.url} key={index} />
                 })}
             </ul>
             <button type="button" onClick={handleIncrement}>see more</button>
+            </div>
         </section>
     )
 }

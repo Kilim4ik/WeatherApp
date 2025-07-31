@@ -8,9 +8,24 @@
     &__title {
         
     }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+    }
     &__image {
 width: 270px;
 height: 208px;
 border-radius: 10px;
+margin-bottom: 20px;
+}
+
+&__description {
+color: #000;
+font-size: 16px;
+font-weight: 500;
+width: 270px;
 }
 }
