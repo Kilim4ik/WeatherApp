@@ -1,0 +1,68 @@
+@use '@/style/variables' as *;
+@use '@/style/mixins/components' as *;
+.details {
+  &__list {
+    background-color: $color-backdrop;
+    padding: 35px 43px;
+    display: grid;
+    gap: 35px;
+    @include media('M') {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 30px;
+    }
+    @include media('L') {
+      padding: 40px 78px;
+    }
+  }
+  &__item {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    background-color: $color-content-backdrop;
+    padding: 15px 0 30px;
+    @include media('M') {
+      gap: 37px;
+    }
+    @include media('L') {
+      gap: 23px;
+    }
+    &:not(:has(img)) {
+      gap: 22px;
+      padding-bottom: 49px;
+      @include media('M') {
+        gap: 29px;
+        padding-bottom: 65px;
+      }
+      @include media('L') {
+        gap: 19px;
+        padding-bottom: 40px;
+      }
+    }
+  }
+  &__content {
+    display: grid;
+    gap: 8px;
+    @include media('L') {
+      gap: 10px;
+    }
+  }
+  &__title {
+    font-size: 10px;
+    @include media('M') {
+      font-size: 12px;
+    }
+    @include media('L') {
+      font-size: 16px;
+    }
+  }
+  &__value {
+    font-size: 14px;
+    @include media('M') {
+      font-size: 16px;
+    }
+    @include media('L') {
+      font-size: 32px;
+    }
+  }
+}
