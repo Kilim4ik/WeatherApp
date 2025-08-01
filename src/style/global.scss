@@ -1,6 +1,6 @@
 @use './variables' as *;
 @use './mixins/components' as *;
-@import 'normalize.css';
+@import './reset.css';
 * {
   box-sizing: border-box;
 }
