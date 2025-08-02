@@ -7,12 +7,11 @@ const bem = createBem('details', styles);
 
 const DetailsList = () => {
   const [weather, setWeather] = useState(null);
+
   const generateDataArray = () => {
     if (!weather) return [];
 
     return [
-      { name: 'Wind Speed', value: weather.wind?.speed, unit: 'm/s' },
-      { name: 'Visibility', value: weather.visibility, unit: 'm' },
       { name: 'Feels Like', value: weather.main?.feels_like, unit: '°C' },
       {
         value: [weather.main?.temp_min, weather.main?.temp_max],
@@ -20,10 +19,12 @@ const DetailsList = () => {
       },
       { name: 'Humidity', value: weather.main?.humidity, unit: '%' },
       {
-        name: 'Weather',
-        value: weather.weather?.[0]?.description,
-        icon: weather.weather?.[0]?.icon,
+        name: 'Pressure',
+        value: weather.main.pressure,
+        unit: 'Pa',
       },
+      { name: 'Wind Speed', value: weather.wind?.speed, unit: 'm/s' },
+      { name: 'Visibility', value: weather.visibility, unit: 'm' },
     ];
   };
   useEffect(() => {
@@ -47,7 +48,7 @@ const DetailsList = () => {
     <section className={bem()}>
       <div className="container">
         <ul className={bem('list')}>
-          {generateDataArray().map(elem => (
+          {generateDataArray().map((elem) => (
             <DetailsItem data={elem} />
           ))}
         </ul>
