@@ -1,11 +1,13 @@
 @use '@/style/variables' as *;
 @use '@/style/mixins/components' as *;
 .details {
+  @include section-padding-top;
   &__list {
     background-color: $color-backdrop;
     padding: 35px 43px;
     display: grid;
     gap: 35px;
+    border-radius: 15px;
     @include media('M') {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -68,7 +70,7 @@
   }
   &__icon {
     @include margin-center;
-    margin-top: 18px;
+
     aspect-ratio: 1/1;
     width: 35px;
     & svg {
@@ -76,11 +78,9 @@
       height: 100%;
     }
     @include media('M') {
-      margin-top: 37px;
       width: 60px;
     }
     @include media('L') {
-      margin-top: 23px;
       width: 85px;
     }
   }

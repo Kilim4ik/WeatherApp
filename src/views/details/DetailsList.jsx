@@ -48,8 +48,8 @@ const DetailsList = () => {
     <section className={bem()}>
       <div className="container">
         <ul className={bem('list')}>
-          {generateDataArray().map((elem) => (
-            <DetailsItem data={elem} />
+          {generateDataArray().map((elem, id) => (
+            <DetailsItem key={id} data={elem} />
           ))}
         </ul>
       </div>
