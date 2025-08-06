@@ -32,7 +32,9 @@ const DetailsItem = ({ data }) => {
         <>
           <div className={bem('content')}>
             <h3 className={bem('title')}>{data.name}</h3>
-            <span className={bem('value')}>{data.value}</span>
+            <span className={bem('value')}>
+              {data.value} {data?.unit}
+            </span>
           </div>
           <div className={bem('icon')}>{icons[data.name]}</div>
         </>

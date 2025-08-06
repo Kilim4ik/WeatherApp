@@ -42,7 +42,7 @@ const DetailsList = () => {
     <section className={bem()}>
       <div className="container">
         <ul className={bem('list')}>
-          {false ? (
+          {renderedData ? (
             renderedData.map((elem, id) => <DetailsItem key={id} data={elem} />)
           ) : (
             <li className={bem('error')}>An error has happened, restart the page and try again</li>
