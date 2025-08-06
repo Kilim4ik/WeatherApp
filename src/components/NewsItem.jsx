@@ -1,9 +1,9 @@
-import { createBem } from "../utils/createBem";
-import { useState } from "react";
+import { createBem } from '../utils/createBem';
+import { useState } from 'react';
 import styles from '../views/news/news.module.scss';
-const bem = createBem("news", styles); 
+const bem = createBem('news', styles);
 
-const NewsItem = ({image, title, url}) => {
+const NewsItem = ({ image, title, url }) => {
   const [imageLoaded, setImageLoaded] = useState(true);
 
   const handleError = () => {
@@ -12,13 +12,12 @@ const NewsItem = ({image, title, url}) => {
 
   if (!image || !imageLoaded) return null;
   return (
-    <li className={bem("item")}>
-      <a href={url}>
-        <img src={image} alt={title} className={bem("image")} onError={handleError} />
+    <li className={bem('item')}>
+      <a href={url} className={bem('link')}>
+        <img src={image} alt={title} className={bem('image')} onError={handleError} />
+        <p className={bem('description')}>{title}</p>
       </a>
-            <p className={bem("description")}>{title}</p>
-
-        </li>
-    )
-}
+    </li>
+  );
+};
 export default NewsItem;

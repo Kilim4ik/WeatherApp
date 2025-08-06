@@ -1,4 +1,4 @@
-import News from "../src/views/news/News";
+import News from '../src/views/news/News';
 
 function App() {
   return (
