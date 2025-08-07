@@ -5,7 +5,6 @@ export const fetchPictures = async () => {
     const res = await axios.get(
       `https://pixabay.com/api?key=${import.meta.env.VITE_PIXABAY_API_KEY}&q=nature`
     );
-    // setPictures(res.data.hits);
     return res.data.hits;
   } catch (error) {
     console.log(error);
