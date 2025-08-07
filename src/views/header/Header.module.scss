@@ -1,0 +1,105 @@
+@use '@/style/variables' as *;
+@use '@/style/mixins/components' as *;
+
+.header {
+    padding: 12px 0;
+    // position: relative;
+    &__menu {
+        display: flex;
+        flex-direction: row;
+        gap: 42px;
+        list-style: none;
+
+    }
+    
+
+
+    &__headerWrapper{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    &__headerBlock{
+        width: 455px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;        
+    }
+
+    &__navigation{
+        display: none;
+
+        // @include media('S'){
+        //     display: none;
+
+        // }
+        @include media('M') {
+            display: block;
+
+        }
+    }
+
+    &__userBlockWrapper{
+        // display: flex;
+        // align-items: center;
+        // gap: 27px;
+        // display: none;
+        display: none;
+
+        // @include media('S'){
+        //     display: none;
+
+        // }
+        @include media('M') {
+            // display: flex;
+            // align-items: center;
+            // gap: 27px;
+            display: block;
+        }
+
+
+
+    }
+    &__userBlock{
+        display: flex;
+        align-items: center;
+        gap: 27px;
+    }
+
+
+
+    &__item>a{
+        color: #000;
+    }
+
+
+    &__headerMenuBtn{
+
+        background: none;
+        border: none;
+
+        @include media('S'){
+            display: block;
+
+        }
+        @include media('M') {
+            display: none;
+
+        }
+    }
+
+    &__buttonInsideBlock{
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        gap: 3px;
+    }
+
+
+
+
+}
+

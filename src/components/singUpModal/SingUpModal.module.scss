@@ -1,0 +1,104 @@
+@use '@/style/variables' as *;
+@use '@/style/mixins/components' as *;
+
+
+.modal {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    box-sizing: border-box;
+    padding: 25px;
+    border-radius: 10px;
+    background: gainsboro;
+    width: 293px;
+    height: 454px;
+    @include media('M') {
+        padding: 25px 45px;
+
+        width: 400px;
+        height: 440px;
+    }
+    @include media('L') {
+        padding: 28px 80px;
+
+        width: 600px;
+        height: 534px;
+    }
+
+
+
+    &__overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; 
+        background-color: rgba(0, 0, 0, 0.7); 
+        z-index: 1500; 
+
+    }
+    &__title{
+        text-align: center;
+        font-family: var(--second-family);
+        font-weight: 500;
+        font-size: 20px;
+        @include media('L') {
+            font-size: 28px;
+
+        }
+    }
+
+    &__form{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        margin-bottom: 30px;
+        @include media('L') {
+            margin-bottom: 35px;
+            gap: 30px;
+
+
+        }
+    }
+    &__label{
+        // font-family: var(--font-family);
+        font-weight: 500;
+        font-size: 12px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    &__input {
+        width: 100%;
+        height: 40px;
+        background: #e4e4e4;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+
+    }
+
+    &__text{
+
+        font-weight: 500;
+        font-size: 8px;
+        text-align: center;
+
+    }
+    &__loginLink{
+        text-decoration: underline;
+        text-decoration-skip-ink: none;
+    }
+
+    &__btn{
+        display: flex;
+
+        justify-content: center;
+        margin-bottom: 15px;
+
+    }
+}

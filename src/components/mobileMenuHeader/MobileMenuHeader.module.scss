@@ -1,0 +1,37 @@
+@use '@/style/variables' as *;
+@use '@/style/mixins/components' as *;
+
+.mobileMenu {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    background: #e6e6e6;
+    padding: 30px 48px;
+    display: flex;
+    justify-content: space-between;
+
+
+    @include media('M') {
+
+        display: none;
+    }
+
+    &__menuForMobile {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+
+    }
+
+    &__userBlockMobile{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+        gap: 15px;
+    }
+
+}
