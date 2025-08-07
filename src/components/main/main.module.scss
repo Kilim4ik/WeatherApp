@@ -1,0 +1,52 @@
+@use '@/style/variables' as *;
+
+.main {
+    background-image: "/public/main/main_background.png";
+
+    &__title {
+        font-family: var(--font-family);
+        font-weight: 600;
+        font-size: 40px;
+        color: $color-secondary;
+    }
+
+    &__main_info {
+        width: 613px;
+        height: 144px;
+    }
+
+    &__info_text {
+        font-family: var(--font-family);
+        font-weight: 500;
+        font-size: 24px;
+        text-align: right;
+        color: $color-secondary;
+    }
+
+    &__info_date {
+        font-family: var(--font-family);
+        font-weight: 500;
+        font-size: 24px;
+        color: $color-secondary;
+    }
+
+    &__search_box {
+        border-radius: 10px;
+        width: 625px;
+        height: 42px;
+    }
+
+    &__search_input {
+        font-family: var(--font-family);
+        font-weight: 500;
+        font-size: 14px;
+        color: $color-search-input;
+    }
+
+    &__search_button {
+        border-left: 2px solid $color-main;
+        border-radius: 0 10px 10px 0;
+        width: 45px;
+        height: 42px;
+    }
+}

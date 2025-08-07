@@ -11,4 +11,4 @@ const Example = () => {
     </header>
   );
 };
-// export default Example;
+export default Example;
