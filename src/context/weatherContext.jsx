@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-const WeatherContext = createContext();
+export const WeatherContext = createContext();
 export const WeatherProvider = ({ children }) => {
   const [cardsArr, setCardsArray] = useState([]);
   const [dailyForecast, setDailyForecast] = useState(false);
