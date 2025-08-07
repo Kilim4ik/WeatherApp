@@ -1,5 +1,5 @@
 import { createBem } from '@/utils/createBem';
-import styles from './details.module.scss';
+import styles from './detailsList.module.scss';
 import Humidity from './icons/humidity.svg';
 import Pressure from './icons/pressure.svg';
 import Temp from './icons/temp.svg';

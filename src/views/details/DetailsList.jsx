@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createBem } from '@/utils/createBem';
-import styles from './details.module.scss';
+import styles from './detailsList.module.scss';
 import DetailsItem from './DetailsItem';
 import { useEffect, useState } from 'react';
 const bem = createBem('details', styles);
