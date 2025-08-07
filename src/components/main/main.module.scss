@@ -1,7 +1,7 @@
 @use '@/style/variables' as *;
 
 .main {
-    background-image: "/public/main/main_background.png";
+    background-image: url("/sections/main/main_background.png");
 
     &__title {
         font-family: var(--font-family);
