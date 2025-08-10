@@ -6,12 +6,12 @@ const bem = createBem('news', styles);
 import NewsItem from '../../components/NewsItem';
 
 const News = () => {
-  const [page, setPage] = useState(1);
+  const [pageCards, setPageCards] = useState(1);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleIncrement = (page) => {
-    setPage((page) => page + 1);
+  const handleIncrement = () => {
+    setPageCards((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -19,31 +19,34 @@ const News = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://newsapi.org/v2/everything?q=weather&pageSize=4&page=${page}&apiKey=${NEWS_API}`
+          `https://newsapi.org/v2/everything?q=weather&pageSize=4&page=${pageCards}&apiKey=${NEWS_API}`
         );
         const data = await response.json();
-        setNews(data.articles || []);
+        setNews([...news, ...data.articles] || []);
       } catch (error) {
         console.error('Error fetching news:', error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
-  }, [page]);
+  }, [pageCards]);
 
   return (
     <section className={bem('section')}>
       <div className="container">
         <h1 className={bem('title')}>Interacting with our pets</h1>
-        {loading && <div className={styles.loader}></div>}
-        {!loading && (
-          <ul className={bem('list')}>
+        {
+          news.length !== 0 && (
+                      <ul className={bem('list')}>
             {news.map((item, index) => (
               <NewsItem title={item.title} image={item.urlToImage} url={item.url} key={index} />
             ))}
-          </ul>
-        )}
+          </ul> 
+          )
+        }
+        {loading && <div className={styles.loader}></div>}
 
         <button type="button" className={bem('button')} onClick={handleIncrement}>
           See more
@@ -52,4 +55,5 @@ const News = () => {
     </section>
   );
 };
+
 export default News;
