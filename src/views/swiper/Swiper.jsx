@@ -8,15 +8,25 @@ import '@/style/global.scss';
 import styles from './swiper.module.scss';
 import { useEffect, useState } from 'react';
 import { fetchPictures } from '@/api/swiper.js';
+import { useLoading } from '../../hooks/useLoading';
 
 const bem = createBem('swiper', styles);
 
 export default function MySwiper() {
   const [pictures, setPictures] = useState([]);
+  const [isLoading, handleLoading, error, handleError, resetError] = useLoading();
   useEffect(() => {
     const getPictures = async () => {
-      const data = await fetchPictures();
-      setPictures(data);
+      handleLoading(true);
+      resetError();
+      try {
+        const data = await fetchPictures();
+        setPictures(data);
+      } catch {
+        handleError();
+      } finally {
+        handleLoading(false);
+      }
     };
     getPictures();
   }, []);
@@ -25,6 +35,8 @@ export default function MySwiper() {
     <section className={styles['swiper-section']}>
       <div className={`${styles['swiper-container']} container`}>
         <h2 className={bem('title')}>Beautiful nature</h2>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
         {pictures.length > 0 && (
           <Swiper
             className={bem()}
