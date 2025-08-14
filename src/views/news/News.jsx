@@ -34,15 +34,13 @@ const News = () => {
     <section className={bem('section')}>
       <div className="container">
         <h1 className={bem('title')}>Interacting with our pets</h1>
-        {
-          news.length !== 0 && (
-                      <ul className={bem('list')}>
+        {news.length !== 0 && (
+          <ul className={bem('list')}>
             {news.map((item, index) => (
               <NewsItem title={item.title} image={item.urlToImage} url={item.url} key={index} />
             ))}
-          </ul> 
-          )
-        }
+          </ul>
+        )}
         {loading && <div className={styles.loader}></div>}
 
         <button type="button" className={bem('button')} onClick={handleIncrement}>
