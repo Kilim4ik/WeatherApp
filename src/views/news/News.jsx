@@ -1,9 +1,9 @@
 import { createBem } from '../../utils/createBem';
 import styles from './news.module.scss';
 import { useEffect, useState } from 'react';
-const NEWS_API = import.meta.env.VITE_API_KEY;
 const bem = createBem('news', styles);
 import NewsItem from '../../components/NewsItem';
+import { fetchNews } from '../../api/fetchNews';
 
 const News = () => {
   const [pageCards, setPageCards] = useState(1);
@@ -18,11 +18,8 @@ const News = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://newsapi.org/v2/everything?q=weather&pageSize=4&page=${pageCards}&apiKey=${NEWS_API}`
-        );
-        const data = await response.json();
-        setNews([...news, ...data.articles] || []);
+        const data = await fetchNews(pageCards, news);
+        setNews([...news, ...data] || []);
       } catch (error) {
         console.error('Error fetching news:', error);
       } finally {
