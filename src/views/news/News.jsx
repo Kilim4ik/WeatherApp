@@ -18,7 +18,7 @@ const News = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await fetchNews(pageCards, news);
+        const data = await fetchNews(pageCards);
         setNews([...news, ...data] || []);
       } catch (error) {
         console.error('Error fetching news:', error);
