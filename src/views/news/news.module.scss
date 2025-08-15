@@ -10,9 +10,7 @@
     }
   }
   &__title {
-    color: $color-main;
     font-size: 20px;
-    font-weight: 500;
     margin-bottom: 40px;
   }
 
@@ -32,39 +30,17 @@
   }
 
   &__description {
-    color: $color-main;
     font-size: 16px;
-    font-weight: 500;
     width: 270px;
   }
   &__button {
     margin-top: 40px;
-    @include btn-content(10px 30px, 16px, $family: 'Montserrat', $weight: 500);
+    @include btn-content(10px 30px, 16px);
     cursor: pointer;
   }
   &__link {
     text-decoration: none;
     color: inherit;
     display: block;
-  }
-}
-
-.loader {
-  width: fit-content;
-  font-size: 40px;
-  font-family: system-ui, sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #0000;
-  -webkit-text-stroke: 1px #000;
-  background: conic-gradient(#000 0 0) 0/0% 100% no-repeat text;
-  animation: l1 1s linear infinite;
-}
-.loader:before {
-  content: 'Loading';
-}
-@keyframes l1 {
-  to {
-    background-size: 120% 100%;
   }
 }
