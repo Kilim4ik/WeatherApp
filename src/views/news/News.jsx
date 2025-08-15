@@ -1,9 +1,11 @@
-import { createBem } from '../../utils/createBem';
+import { createBem } from '@/utils/createBem';
 import styles from './news.module.scss';
 import { useEffect, useState } from 'react';
 const bem = createBem('news', styles);
-import NewsItem from '../../components/NewsItem';
-import { fetchNews } from '../../api/fetchNews';
+import NewsItem from '@/components/NewsItem';
+import Loader from '@/components/loader/Loader';
+
+import { fetchNews } from '@/api/fetchNews';
 
 const News = () => {
   const [pageCards, setPageCards] = useState(1);
@@ -41,7 +43,7 @@ const News = () => {
             ))}
           </ul>
         )}
-        {loading && <div className={styles.loader}></div>}
+        {loading && <Loader />}
 
         <button type="button" className={bem('button')} onClick={handleIncrement}>
           See more

@@ -1,14 +1,17 @@
+import { useEffect, useState } from 'react';
+import { useLoading } from '@/hooks/useLoading';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from 'swiper/modules';
 import { createBem } from '@/utils/createBem';
 
+import styles from './swiper.module.scss';
+import '@/style/global.scss';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-import '@/style/global.scss';
-import styles from './swiper.module.scss';
-import { useEffect, useState } from 'react';
+
 import { fetchPictures } from '@/api/swiper.js';
-import { useLoading } from '../../hooks/useLoading';
+import Loader from '@/components/loader/Loader';
 
 const bem = createBem('swiper', styles);
 
@@ -16,9 +19,9 @@ export default function MySwiper() {
   const [pictures, setPictures] = useState([]);
   const [isLoading, handleLoading, error, handleError, resetError] = useLoading();
   useEffect(() => {
+    handleLoading(true);
+    resetError();
     const getPictures = async () => {
-      handleLoading(true);
-      resetError();
       try {
         const data = await fetchPictures();
         setPictures(data);
@@ -35,7 +38,7 @@ export default function MySwiper() {
     <section className={styles['swiper-section']}>
       <div className={`${styles['swiper-container']} container`}>
         <h2 className={bem('title')}>Beautiful nature</h2>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <Loader />}
         {error && <p>{error}</p>}
         {pictures.length > 0 && (
           <Swiper
