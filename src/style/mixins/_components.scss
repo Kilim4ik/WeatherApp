@@ -1,6 +1,7 @@
 @use '../variables' as *;
 @mixin btn($padding, $size: 10px, $family: $font-main, $weight: 500) {
   background-color: $color-primary;
+  font-size: $size;
   color: $color-main;
   padding: $padding;
   border: none;
