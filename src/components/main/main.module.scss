@@ -2,17 +2,24 @@
 
 .main {
     background-image: url("/sections/main/main_background.png");
+    height: 595px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     &__title {
         font-family: var(--font-family);
         font-weight: 600;
         font-size: 40px;
         color: $color-secondary;
+        text-align: center;
+        padding: 100px 0 80px 0;
     }
 
     &__main_info {
         width: 613px;
         height: 144px;
+        padding: 120px 0 0 0;
     }
 
     &__info_text {
@@ -21,6 +28,20 @@
         font-size: 24px;
         text-align: right;
         color: $color-secondary;
+        text-align: center;
+        padding: 0px 0px 0 267px;
+        position: relative;
+        top: -175px;
+        right: -30px;
+    }
+
+    &__line {
+        border: 2px solid #fff;
+        height: 144px;
+        width: 0px;
+        position: relative;
+        top: -277px;
+        right: -691px;
     }
 
     &__info_date {
@@ -28,23 +49,39 @@
         font-weight: 500;
         font-size: 24px;
         color: $color-secondary;
+        position: relative;
+        top: -450px;
+        right: -773px;
     }
 
     &__search_box {
-        border-radius: 10px;
-        width: 625px;
-        height: 42px;
+        padding: 80px 408px 100px 407px;
     }
 
     &__search_input {
+        border-radius: 10px;
+        width: 625px;
+        height: 42px;
+        background-color: $color-content-backdrop;
+
         font-family: var(--font-family);
         font-weight: 500;
         font-size: 14px;
-        color: $color-search-input;
+        color: $color-secondary;
+        margin-right: -45px;
+        padding: 13px 0 12px 29px;
     }
 
     &__search_button {
         border-left: 2px solid $color-main;
+        border-radius: 0 10px 10px 0;
+        width: 45px;
+        height: 42px;
+        background: $color-primary;
+    }
+
+    &__search {
+
         border-radius: 0 10px 10px 0;
         width: 45px;
         height: 42px;
