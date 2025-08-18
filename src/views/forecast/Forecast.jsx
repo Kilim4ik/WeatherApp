@@ -10,14 +10,14 @@ const API_KEY = import.meta.env.VITE_FORECAST_API_KEY;
 
 const bem = createBem('weather', styles);
 
-const Forecast = () => {
+const Forecast = ({ latitude, longitude }) => {
   const [forecastData, setForecastData] = useState([]);
   const [dateConverted, setDateConverted] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=50.45&lon=30.52&units=metric&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
         );
         const data = await response.json();
         console.log(data);
