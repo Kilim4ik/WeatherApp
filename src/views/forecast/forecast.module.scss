@@ -1,4 +1,6 @@
-@import '../../style/mixins/components';
+@use '../../style/variables' as *;
+@import '@/style/mixins/components';
+@import '@/style/mixins/typography';
 
 .weather__section {
   @include section-padding-top();
@@ -11,16 +13,14 @@
     }
     @include media('L') {
       padding: 26px 78px 42px 78px;
-
     }
   }
 }
 
 .weather {
   &__title {
-    color: #000;
-    font-size: 10px;
-    font-weight: 600;
+    color: $color-main;
+    @include h2-header;
     margin-bottom: 25px;
     margin-left: 18px;
     @include media('M') {
@@ -34,13 +34,11 @@
     }
   }
   &__list {
-    display: flex;
-    align-items: center;
+    @include flex-center;
     flex-wrap: wrap;
+    flex-direction: row;
     row-gap: 43px;
     column-gap: 35px;
-    flex-direction: row;
-    justify-content: center;
     @include media('M') {
       flex-direction: column;
       gap: 17px;
@@ -55,7 +53,7 @@
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
-    background: #d9d9d9;
+    background: $color-content-backdrop;
     padding: 10px 25px 22px 25px;
     text-align: center;
     max-width: 100px;
@@ -72,10 +70,9 @@
     }
   }
   &__item-date {
-    color: #000;
+    color: $color-main;
     text-align: center;
     font-size: 10px;
-    font-weight: 500;
     margin-bottom: 20px;
     white-space: nowrap;
     @include media('M') {
@@ -103,9 +100,7 @@
   }
 
   &__item-image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     text-align: center;
     flex-direction: column;
     gap: 7px;
@@ -130,7 +125,7 @@
   }
 
   &__item-temperature {
-    color: #000;
+    color: $color-main;
     font-size: 10px;
     font-weight: 500;
     margin-bottom: 15px;
@@ -146,7 +141,7 @@
   }
 
   &__item-description {
-    color: #000;
+    color: $color-main;
     font-size: 10px;
     font-weight: 500;
     text-align: center;

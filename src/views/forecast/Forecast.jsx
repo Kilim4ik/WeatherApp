@@ -4,20 +4,17 @@ import { useEffect } from 'react';
 import ForecastItem from '@/components/ForecastItem';
 import DateConverter from './DateConverter';
 import { useState } from 'react';
-import { set } from 'date-fns';
-import IconDetector from './IconDetector';
 const API_KEY = import.meta.env.VITE_FORECAST_API_KEY;
 
 const bem = createBem('weather', styles);
 
 const Forecast = ({ latitude, longitude }) => {
   const [forecastData, setForecastData] = useState([]);
-  const [dateConverted, setDateConverted] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${"50.54"}&lon=${"30.45"}&units=metric&appid=${API_KEY}`
         );
         const data = await response.json();
         console.log(data);
@@ -47,7 +44,8 @@ const Forecast = ({ latitude, longitude }) => {
           <h1 className={bem('title')}>Weekly forecast</h1>
           <ul className={bem('list')}>
             {forecastData.map((item, key) => {
-              const icon = IconDetector(item.weather[0].main);
+              const icon = item.weather[0].icon;
+              const iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
               const maxTemp = Math.round(item.main.temp_max);
               const minTemp = Math.round(item.main.temp_min);
               const description = item.weather[0].description;
@@ -55,7 +53,7 @@ const Forecast = ({ latitude, longitude }) => {
                 <ForecastItem
                   key={key}
                   date={DateConverter(item.dt_txt)}
-                  imageUrl={icon}
+                  imageUrl={iconUrl}
                   maxTemp={maxTemp}
                   minTemp={minTemp}
                   description={description}

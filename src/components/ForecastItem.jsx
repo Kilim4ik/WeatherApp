@@ -13,9 +13,9 @@ const ForecastItem = ({ date, description, maxTemp, minTemp, imageUrl }) => {
           <p className={bem('item-temperature')}>
             {maxTemp}/{minTemp}°C
           </p>
+        </div>
+        <p className={bem('item-description')}>{description}</p>
       </div>
-      <p className={bem('item-description')}>{description}</p>
-</div>
     </li>
   );
 };
