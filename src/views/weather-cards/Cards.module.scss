@@ -5,7 +5,13 @@
   justify-content: space-between;
   margin: 0 auto;
   width: 100%;
-  max-width: 1140px;
+  max-width: 293px;
+  @include media("M"){
+  max-width: 634px;
+  }
+  @include media("L"){
+    max-width: 1140px;
+  }
   &__item {
     @include flex-center;
     flex-direction: column;
