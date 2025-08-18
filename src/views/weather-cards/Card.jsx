@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import {useState, useContext } from 'react';
+import { WeatherContext } from '../../context/weatherContext';
 import styles from './Cards.module.scss';
 import { createBem } from '@/utils/createBem';
 import fetchWeather from '@/api/openWeather';
-
 const bem = createBem('weather-cards', styles);
 
 function timeNow() {
@@ -15,48 +15,37 @@ function timeNow() {
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export default function Card() {
-  const [weather, setWeather] = useState([]);
+  const {cardsArr,handleAddingNewCard, deleteCardByName } = useContext(WeatherContext);
   const [inputValue, setInputValue] = useState('');
-  const [cities, setCities] = useState(['Kyiv']);
   const [favorites, setFavorites] = useState([]);
   const [time, setTime] = useState(timeNow());
 
   const date = new Date();
   const dayOfWeek = date.getDay();
-
-  const getWeather = async () => {
-    try {
-      const promises = cities.map(city => fetchWeather(city));
-      const data = await Promise.all(promises);
-      setWeather(data);
-    } catch (err) {
-      console.error('Failed to fetch weather data:', err);
-    }
-  };
-  useEffect(() => {
-    getWeather();
-  }, [cities]);
-
   const handleSearch = async () => {
     const newCity = inputValue.trim();
-    if (!newCity || cities.includes(newCity)) return;
-
+    if (!newCity) return;
     setInputValue('');
     try {
       const newWeather = await fetchWeather(newCity);
-      setWeather(prev => [...prev, newWeather]);
-      setCities(prev => [...prev, newCity]);
+      handleAddingNewCard(newWeather); 
     } catch (err) {
       console.error('Failed to fetch new city weather:', err);
     }
   };
-const handleRefresh = () =>{
-  getWeather()
-  setTime(timeNow())
-}
+  const handleRefresh = async () => {
+    try {
+      const refreshedCards = await Promise.all(
+        cardsArr.map(card => fetchWeather(card.name))
+      );
+      refreshedCards.forEach(card => handleAddingNewCard(card));
+      setTime(timeNow());
+    } catch (err) {
+      console.error('Failed to refresh weather:', err);
+    }
+  };
   const handleDelete = (cityName) => {
-    setCities(prev => prev.filter(name => name !== cityName));
-    setWeather(prev => prev.filter(item => item.name !== cityName));
+    deleteCardByName(cityName)
     setFavorites(prev => prev.filter(name => name !== cityName));
   };
 
@@ -72,11 +61,6 @@ const handleRefresh = () =>{
       setFavorites(prev => [...prev, cityName]);
     }
   };
-
-  if (weather.length === 0) {
-    return <p className={bem('loading')}>Loading...</p>;
-  }
-
   return (
     <>
       <div className={bem('search')}>
@@ -91,9 +75,8 @@ const handleRefresh = () =>{
           Add City
         </button>
       </div>
-
       <ul className={bem()}>
-        {weather.map((item, index) => {
+        {cardsArr.map((item, index) => {
           const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
           const countryName = regionNames.of(item.sys.country);
 
