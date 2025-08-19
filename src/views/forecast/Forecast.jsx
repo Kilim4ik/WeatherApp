@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import ForecastItem from '@/components/ForecastItem';
 import DateConverter from './DateConverter';
 import { useState } from 'react';
-const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+const API_KEY = import.meta.env.VITE_FORECAST_API_KEY;
 
 const bem = createBem('weather', styles);
 
@@ -14,7 +14,7 @@ const Forecast = ({ latitude, longitude }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${'50.54'}&lon=${'30.45'}&units=metric&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
         );
         const data = await response.json();
         const filtered = [];
