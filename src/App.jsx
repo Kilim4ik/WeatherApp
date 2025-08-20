@@ -1,13 +1,18 @@
-import React from 'react';
-import Statistic from './components/Statistic';
-import Footer from './components/Footer';
-const App = () => {
+
+
+import MySwiper from './views/swiper/Swiper';
+import News from '../src/views/news/News';
+
+function App() {
   return (
-    <div className="app-container">
-      <Statistic />
+    <div className="App">
+       <Statistic />
       <Footer/>
+      <MySwiper />
+      <News />
     </div>
   );
-};
+}
+
 
 export default App;
