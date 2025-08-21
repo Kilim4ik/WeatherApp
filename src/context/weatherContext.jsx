@@ -6,10 +6,11 @@ export const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
   const [cardsArr, setCardsArray] = useState([]);
+  const [inputValue, setInputValue] = useState('');
   const [dailyForecast, setDailyForecast] = useState(false);
   const [weeklyForecast, setWeeklyForecast] = useState(false);
   const [choosenCard, setChoosenCard] = useState(null);
-
+  const [userCities, setUserCities] = useState([]);
   const maxCards = useMaxCards();
 
   const handleAddingNewCard = (card) => {
@@ -32,13 +33,13 @@ export const WeatherProvider = ({ children }) => {
   const toggleWeeklyForecast = () => setWeeklyForecast(prev => !prev);
 
   const handleChooseCard = (id) => setChoosenCard(getCard(id));
-
   useEffect(() => {
     const loadCities = async () => {
       try {
         let cities = ["Kyiv"];
         if (maxCards >= 2) cities.push("Lviv");
         if (maxCards >= 3) cities.push("Berlin");
+  
         const data = await Promise.all(cities.map(city => fetchWeather(city)));
         setCardsArray(data);
       } catch (err) {
@@ -47,7 +48,33 @@ export const WeatherProvider = ({ children }) => {
     };
     loadCities();
   }, [maxCards]);
-
+  const handleSearch = async () => {
+    const newCity = inputValue.trim();
+    if (!newCity) return;
+  
+    setInputValue('');
+  
+    try {
+      const newWeather = await fetchWeather(newCity);
+  
+      setCardsArray(prev => {
+        if (prev.some(card => card.name.toLowerCase() === newWeather.name.toLowerCase())) return prev;
+        const allBaseCities = ["Kyiv", "Lviv", "Berlin"];
+        const onlyBase = prev.every(card => allBaseCities.includes(card.name));
+        if (onlyBase) {
+          return [newWeather]; 
+        }
+        const newArr = [...prev, newWeather];
+        if (newArr.length > maxCards) {
+          return newArr.slice(-maxCards);
+        }
+        return newArr;
+      });
+  
+    } catch (err) {
+      console.error('Failed to fetch new city weather:', err);
+    }
+  };
   const deleteCardByName = (name) => {
     setCardsArray(prev => prev.filter(card => card.name !== name));
   };
@@ -56,6 +83,10 @@ export const WeatherProvider = ({ children }) => {
     <WeatherContext.Provider
       value={{
         cardsArr,
+        userCities,
+        inputValue,
+        setInputValue,
+        handleSearch,
         handleAddingNewCard,
         deleteCardByName,
         deleteLastCard,

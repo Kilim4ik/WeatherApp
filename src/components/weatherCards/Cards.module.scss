@@ -1,8 +1,7 @@
 @use '@/style/variables' as *;
 @use '@/style/mixins/components' as *;
 .weather-cards {
-  display: flex;
-  justify-content: space-between;
+@include flex-center(space-between);
   margin: 0 auto;
   width: 100%;
   max-width: 293px;
@@ -30,8 +29,7 @@
     }
   }
   &__country-info-container {
-    display: flex;
-    justify-content: space-between;
+    @include flex-center(space-between);
     max-width: 263px;
     margin-bottom: 14px;
     width: 100%;
@@ -43,16 +41,10 @@
     }
   }
   &__country-info {
-    font-family: $font-main;
-    font-weight: 500;
     font-size: 12px;
-    color: $color-main;
   }
   &__weather__time {
-    font-family: $font-main;
-    font-weight: 500;
     font-size: 20px;
-    color: $color-main;
     @include media("M"){
       margin-bottom: 8px;
     }
@@ -61,8 +53,7 @@
     }
   }
   &__button-wrapper {
-    display: flex;
-    justify-content: space-between;
+    @include flex-center(space-between);
     max-width: 210px;
     width: 100%;
   }
@@ -74,11 +65,8 @@
     margin: 0 13px 0 18px;
   }
   &__temperature {
-    font-family: $font-main;
-    font-weight: 500;
     font-size: 24px;
     text-align: center;
-    color: $color-main;
     margin-top: 14px;
     margin-bottom: 33px;
     @include media("M"){
@@ -100,23 +88,18 @@
     object-fit: cover;
   }
   &__date {
-    font-family: $font-main;
-    font-weight: 500;
     font-size: 11px;
     text-align: right;
-    color: $color-main;
   }
   &__date__line {
     border: 0.9px solid $color-main;
     height: 14px;
   }
   &__date-wrapper {
-    display: flex;
+@include flex-center(space-between);
     max-width: 120px;
     margin-bottom: 13px;
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
     @include media("M"){
       margin-top: 12px;
       margin-bottom: 27px;

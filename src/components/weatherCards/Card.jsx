@@ -3,6 +3,7 @@ import { WeatherContext } from '../../context/weatherContext';
 import styles from './Cards.module.scss';
 import { createBem } from '@/utils/createBem';
 import fetchWeather from '@/api/openWeather';
+import Button from './Button';
 const bem = createBem('weather-cards', styles);
 
 function timeNow() {
@@ -15,24 +16,24 @@ function timeNow() {
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export default function Card() {
-  const {cardsArr,handleAddingNewCard, deleteCardByName } = useContext(WeatherContext);
-  const [inputValue, setInputValue] = useState('');
+  const {cardsArr,handleAddingNewCard, deleteCardByName,handleSearch,inputValue,setInputValue } = useContext(WeatherContext);
   const [favorites, setFavorites] = useState([]);
   const [time, setTime] = useState(timeNow());
-
   const date = new Date();
   const dayOfWeek = date.getDay();
-  const handleSearch = async () => {
-    const newCity = inputValue.trim();
-    if (!newCity) return;
-    setInputValue('');
-    try {
-      const newWeather = await fetchWeather(newCity);
-      handleAddingNewCard(newWeather); 
-    } catch (err) {
-      console.error('Failed to fetch new city weather:', err);
-    }
-  };
+  // const handleSearch = async () => {
+  //   const newCity = inputValue.trim();
+  //   if (!newCity) return;
+  
+  //   setInputValue('');
+  //   try {
+  //     const newWeather = await fetchWeather(newCity);
+
+  
+  //   } catch (err) {
+  //     console.error('Failed to fetch new city weather:', err);
+  //   }
+  // };
   const handleRefresh = async () => {
     try {
       const refreshedCards = await Promise.all(
@@ -80,7 +81,7 @@ export default function Card() {
           const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
           const countryName = regionNames.of(item.sys.country);
 
-          const isFavorite = favorites.includes(item.name);
+          // const isFavorite = favorites.includes(item.name);
 
           return (
             <li key={index} className={bem('item')}>
@@ -113,33 +114,24 @@ export default function Card() {
               <p className={bem('temperature')}>{item.main.temp.toFixed()}°C</p>
 
               <div className={bem('icons-wrapper')}>
-                <button onClick={handleRefresh} className={`${bem('icon-button')} ${bem('icon-button--spinner')}`}>
-                  <svg className={`${bem('icon')} ${bem('icon--spinner')}`}>
-                    <use href="/images/weather-cards/sprite.svg#icon-spinner"></use>
-                  </svg>
-                </button>
-
-                <button
-                  onClick={(e) => handleAddToFavorites(e, item.name)}
-                  className={`${bem('icon-button')} ${bem('icon-button--heart')} ${isFavorite ? bem('icon-heart--active') : ''}`}
-                >
-                  <svg className={`${bem('icon')} ${bem('icon--heart')}`}>
-                    <use href="/images/weather-cards/sprite.svg#icon-heart"></use>
-                  </svg>
-                </button>
-
+              <Button 
+                btnEvent={handleRefresh} 
+                btnClass="spinner" 
+                imgSrc="/images/weather-cards/sprite.svg#icon-spinner" 
+              />
+                <Button 
+                btnEvent={(e) => handleAddToFavorites(e, item.name)} 
+                btnClass="heart" 
+                imgSrc="/images/weather-cards/sprite.svg#icon-heart" 
+                />
                 <button className={`${bem('button')} ${bem('button-more')}`}>
                   See more
                 </button>
-
-                <button
-                  onClick={() => handleDelete(item.name)}
-                  className={`${bem('icon-button')} ${bem('icon-button--trash')}`}
-                >
-                  <svg className={`${bem('icon')} ${bem('icon--trash')}`}>
-                    <use href="/images/weather-cards/sprite.svg#icon-trash"></use>
-                  </svg>
-                </button>
+                <Button 
+                btnEvent={() => handleDelete(item.name)} 
+                btnClass="trash" 
+                imgSrc="/images/weather-cards/sprite.svg#icon-trash" 
+                />
               </div>
             </li>
           );
