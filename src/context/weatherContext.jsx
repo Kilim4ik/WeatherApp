@@ -10,7 +10,6 @@ export const WeatherProvider = ({ children }) => {
   const [dailyForecast, setDailyForecast] = useState(false);
   const [weeklyForecast, setWeeklyForecast] = useState(false);
   const [choosenCard, setChoosenCard] = useState(null);
-  const [userCities, setUserCities] = useState([]);
   const maxCards = useMaxCards();
 
   const handleAddingNewCard = (card) => {
@@ -83,7 +82,6 @@ export const WeatherProvider = ({ children }) => {
     <WeatherContext.Provider
       value={{
         cardsArr,
-        userCities,
         inputValue,
         setInputValue,
         handleSearch,
