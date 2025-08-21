@@ -37,21 +37,16 @@ html {
     width: 380px;
     padding-left: 0;
     padding-right: 0;
-  @include media('S') {
-    width: 380px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  @include media('M') {
-    width: 634px;
+
+
   @include media('M') {
     width: 634px;
   }
-  @include media('L') {
+
   @include media('L') {
     width: 1140px;
   }
-}
+  }}
 
 a {
   color: #000;
@@ -63,4 +58,8 @@ ul, ol {
   list-style: none;
   padding: 0;
 }
+
+
+
+
 

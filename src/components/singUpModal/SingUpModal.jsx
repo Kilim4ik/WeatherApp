@@ -1,41 +1,144 @@
 import {createBem} from '@/utils/createBem'
 import styles from './SingUpModal.module.scss'
+import { auth } from '../../lib/db'
+import CloseX from '../../../public/images/icons/closeX.svg'
 
-import { useState } from 'react'
-import ButtonHeader from '../../components/button/ButtonHeader'
+import { useState, useRef, useContext } from 'react'
+
+import { UserContext } from '../../context/userContext'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile  } from "firebase/auth";
+
+
+import LogInForm from '../logInForm/LogInForm'
+import SignUpForm from '../signUpForm/SignUpForm'
+
+
 
 const bem = createBem('modal', styles)
 
 
-export default function SingUpModal ( {onClick} ) {
+
+
+
+export default function SingUpModal ( {onClick, isOpen, setIsModalOpen} ) {
+    const {setIsAuth, setUser} = useContext(UserContext)
+
+    const userNameInp = useRef('')
+    const emailInp = useRef('')
+    const passwordInp = useRef('')
+
+
+    const loginEmail = useRef('')
+    const loginPassword = useRef('')
+
+
+    const [isLoginModal, setisLoginModal] = useState(false)
+
+
+    const changeForm = () => {
+        setisLoginModal(!isLoginModal)
+
+    }
+
+    const handleRegister = async(e) => {
+        e.preventDefault()
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                emailInp.current.value,
+                passwordInp.current.value
+            )
+            await updateProfile(userCredential.user, {displayName: userNameInp.current.value})
+            setUser(userNameInp.current.value)
+            setIsAuth(true)
+            setIsModalOpen(false)
+            console.log(userCredential)
+        } catch(error) {
+                        if (error.code === "auth/weak-password") {
+        alert("Слабкий пароль");
+      }
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email вже використовується");
+      }
+            
+            
+        }
+    }
+
+    const handleLogin = async(e) => {
+        e.preventDefault()
+        try {
+            const userCredential = await signInWithEmailAndPassword(
+                auth, 
+                loginEmail.current.value,
+                loginPassword.current.value
+
+
+            )
+
+            
+            setUser(userCredential.user.displayName)
+            setIsModalOpen(false)
+
+            console.log(userCredential.user.displayName)
+        } catch(error) {
+            if (error.code === "auth/invalid-credential") {
+                alert("Користувач не зареєстрований");
+            }
+            if (error.code === "auth/wrong-password") {
+                alert("Wrong password");
+            }
+            if (error.code === "auth/user-not-found") {
+            alert("User not found");
+      }
+      if (error.code === "auth/invalid-email") {
+        alert("Invalid email");
+      }
+      if (error.code === "auth/weak-password") {
+        alert("Weak password");
+      }
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email already in use");
+      }
+    }
+        
+    }
+
     return (
-        <div className={bem('overlay')} onClick={onClick}>
-            <div className={bem()}  onClick={(e) => e.stopPropagation()}>
-                <h2 className={bem('title')}>Sign up</h2>
-                <form className={bem('form')}>
-                    <label className={bem('label')}>
-                        Username:
-                        <input className={bem('input')} name="name" placeholder='Username'/>
-                    </label>
-                    <label className={bem('label')}>
-                        E-mail:
-                        <input className={bem('input')} name="name" placeholder='E-mail' />
-                    </label>
+        <div 
+            className={`${bem('overlay')} ${isOpen ? bem('show') : ""}`} 
+            onClick={onClick}
+        >
+            <div className={bem()} onClick={(e) => e.stopPropagation()}>
+                <button className={bem('closeBtn')} onClick={onClick}>
+                    <CloseX/>
+                </button>
 
-                    <label className={bem('label')}>
-                        Password:
-                        <input className={bem('input')} name="name" placeholder='Password' />
-                    </label>
+                {!isLoginModal ?
+                <>
 
-                </form>
-                <div className={bem('btn')}>
-                    <ButtonHeader></ButtonHeader>
+                <SingUpForm refUsername={userNameInp} refEmail={emailInp} refPassword={passwordInp} changeForm={changeForm} handleRegister={handleRegister}></SingUpForm>
 
-                </div>
-                <p className={bem('text')}>Already have an account? <a href='' className={bem('loginLink')}>Log in</a></p>
+                </>
+                : 
+                <>
+
+                    <LogInForm refEmail={loginEmail} refPassword={loginPassword} changeForm={changeForm} handleLogin={handleLogin}></LogInForm>
+                </>
+
+                }
+
+
+
+
+
+
             </div>
-
         </div>
-
     )
 }
+
+
+// валідація форми
+
+// https://www.npmjs.com/package/yup

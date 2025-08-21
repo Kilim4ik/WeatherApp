@@ -73,7 +73,15 @@
 
     &__item>a{
         color: #000;
+        cursor: pointer;
+        transition: 1s;
     }
+
+    &__item>a:hover {
+        color: #ffb36c;
+
+    }
+
 
 
     &__headerMenuBtn{
@@ -96,6 +104,11 @@
         align-items:center;
         justify-content:center;
         gap: 3px;
+    }
+
+    &__btnHeader{
+        @include btn-main(10px 20px, 12, $family: $font-main, $weight: 500);
+        font-size: 12px;
     }
 
 
