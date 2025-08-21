@@ -25,7 +25,8 @@ const LogInForm = ({ handleLogin, changeForm }) => {
           <label className={bem('label')}>
             E-mail:
             <Field className={bem('input')} type="email" name="email" placeholder="E-mail" />
-            {/* <ErrorMessage className={bem('errorMessage')} name="email" component="div" style={{ color: 'red' }} /> */}
+            <ErrorMessage className={bem('error')} name="email" component="div" style={{ color: 'red' }} />
+
 
           </label>
 
@@ -37,7 +38,8 @@ const LogInForm = ({ handleLogin, changeForm }) => {
               name="password"
               placeholder="Password"
             />
-            {/* <ErrorMessage className={bem('errorMessage')} name="password" component="div" style={{ color: 'red' }} /> */}
+            <ErrorMessage className={bem('error')} name="password" component="div" style={{ color: 'red' }} />
+
           </label>
 
           <div>
@@ -55,12 +57,7 @@ const LogInForm = ({ handleLogin, changeForm }) => {
             </p>
           </div>
 
-          <div className={bem('errorBlock')}>
-            <ErrorMessage className={bem('errorMessage')} name="email" component="div" style={{ color: 'red' }} />
-            <ErrorMessage className={bem('errorMessage')} name="password" component="div" style={{ color: 'red' }} />
 
-
-          </div>
 
         </Form>
       )}
@@ -68,38 +65,5 @@ const LogInForm = ({ handleLogin, changeForm }) => {
   );
 };
 
-// const LogInForm = ({refEmail, refPassword, handleLogin, changeForm}) => {
-//   return (
-//     <>
-//       <h2 className={`${bem('title')} ${bem('login-title')}`}>Log in</h2>
-//       <form className={bem('form')} onSubmit={handleLogin}>
-//         <label className={bem('label')}>
-//           E-mail:
-//           <input className={bem('input')} ref={refEmail} name="email" placeholder="E-mail" />
-//         </label>
-//         <label className={bem('label')}>
-//           Password:
-//           <input
-//             className={bem('input')}
-//             ref={refPassword}
-//             name="password"
-//             placeholder="Password"
-//           />
-//         </label>
-//         <div className={bem('btn')}>
-//           <button type="submit" className={bem('btnModal')}>
-//             Log in
-//           </button>
-//         </div>
-//       </form>
-//       <p className={`${bem('text')} ${bem('login-btn')}`}>
-//         No account?{' '}
-//         <button className={bem('loginLink')} onClick={changeForm}>
-//           Sign up
-//         </button>
-//       </p>
-//     </>
-//   );
-// }
 
 export default LogInForm;

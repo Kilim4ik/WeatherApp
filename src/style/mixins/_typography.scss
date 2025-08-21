@@ -6,10 +6,8 @@
   font-size: 14px;
   color: $color-secondary;
   @include media('M') {
-  @include media('M') {
     font-size: 20px;
   }
-  @include media('L') {
   @include media('L') {
     font-size: 40px;
   }

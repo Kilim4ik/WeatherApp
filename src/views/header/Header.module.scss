@@ -3,7 +3,7 @@
 
 .header {
     padding: 12px 0;
-    // position: relative;
+
     &__menu {
         display: flex;
         flex-direction: row;
@@ -31,11 +31,6 @@
 
     &__navigation{
         display: none;
-
-        // @include media('S'){
-        //     display: none;
-
-        // }
         @include media('M') {
             display: block;
 
@@ -43,20 +38,9 @@
     }
 
     &__userBlockWrapper{
-        // display: flex;
-        // align-items: center;
-        // gap: 27px;
-        // display: none;
         display: none;
-
-        // @include media('S'){
-        //     display: none;
-
-        // }
         @include media('M') {
-            // display: flex;
-            // align-items: center;
-            // gap: 27px;
+
             display: block;
         }
 
@@ -71,13 +55,13 @@
 
 
 
-    &__item>a{
+    &__item-link{
         color: #000;
         cursor: pointer;
         transition: 1s;
     }
 
-    &__item>a:hover {
+    &__item-link:hover {
         color: #ffb36c;
 
     }

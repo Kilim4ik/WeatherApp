@@ -15,8 +15,7 @@ import { UserContext } from '../../context/userContext'
 
 
 import MobileMenu from '@/components/mobileMenuHeader/MobileMenuHeader'
-import SignUpModal from '@/components/signUpModal/SignUpModal'
-import { p } from 'framer-motion/client'
+import ModalForm from '@/components/modalForm/ModalForm'
 
 
 const bem = createBem('header', styles)
@@ -65,9 +64,9 @@ export default function Header () {
                         <div className={bem("logo")}><Logo/></div>
                         <nav className={bem("navigation")}>
                             <ul className={bem("menu")}>
-                                <li className={bem("item")}><a href="">Who we are</a></li>
-                                <li className={bem("item")}><a href="">Contacts</a></li>
-                                <li className={bem("item")}><a href="">Menu</a></li>
+                                <li className={bem("item")}><a className={bem("item-link")} href="">Who we are</a></li>
+                                <li className={bem("item")}><a className={bem("item-link")} href="">Contacts</a></li>
+                                <li className={bem("item")}><a className={bem("item-link")} href="">Menu</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -96,7 +95,7 @@ export default function Header () {
 
 
             {showModal && (
-                <SignUpModal 
+                <ModalForm 
                     onClick={handleModal} 
                     isOpen={isModalOpen} 
                     setIsModalOpen={setIsModalOpen}

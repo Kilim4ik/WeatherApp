@@ -1,11 +1,14 @@
 import { createBem } from '@/utils/createBem';
-import styles from './SignUpModal.module.scss';
-import { auth } from '../../lib/db';
+import styles from './ModalForm.module.scss';
+import { auth } from '@/lib/db';
 import CloseX from '../../../public/images/icons/closeX.svg';
+
+
 
 import { useState, useRef, useContext } from 'react';
 
-import { UserContext } from '../../context/userContext';
+
+import { UserContext } from '@/context/userContext';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -17,10 +20,15 @@ import LogInForm from '../logInForm/LogInForm';
 
 import SignUpForm from '../signUpForm/SignUpForm';
 
+
 const bem = createBem('modal', styles);
 
-export default function SignUpModal({ onClick, isOpen, setIsModalOpen }) {
+export default function ModalForm({ onClick, isOpen, setIsModalOpen }) {
   const { setIsAuth, setUser } = useContext(UserContext);
+
+  const [isLoading, setIsLoading] = useState(false)
+
+
 
   const userNameInp = useRef('');
   const emailInp = useRef('');
@@ -36,7 +44,10 @@ export default function SignUpModal({ onClick, isOpen, setIsModalOpen }) {
   };
 
   const handleRegister = async (values) => {
+    setIsLoading(true)
+
     try {
+      
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         values.email,
@@ -49,10 +60,16 @@ export default function SignUpModal({ onClick, isOpen, setIsModalOpen }) {
     } catch (error) {
       if (error.code === 'auth/weak-password') alert('Слабкий пароль');
       if (error.code === 'auth/email-already-in-use') alert('Email вже використовується');
+    }finally{
+      setIsLoading(false)
+
     }
   };
 
   const handleLogin = async (values) => {
+    setIsLoading(true)
+
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
       setUser(userCredential.user.displayName);
@@ -61,69 +78,12 @@ export default function SignUpModal({ onClick, isOpen, setIsModalOpen }) {
       if (error.code === 'auth/invalid-credential') alert('Користувач не зареєстрований');
       if (error.code === 'auth/wrong-password') alert('Wrong password');
       if (error.code === 'auth/user-not-found') alert('User not found');
+    }finally{
+      setIsLoading(false)
+
     }
   };
 
-  // const handleRegister = async(e) => {
-  //     e.preventDefault()
-  //     try {
-  //         const userCredential = await createUserWithEmailAndPassword(
-  //             auth,
-  //             emailInp.current.value,
-  //             passwordInp.current.value
-  //         )
-  //         await updateProfile(userCredential.user, {displayName: userNameInp.current.value})
-  //         setUser(userNameInp.current.value)
-  //         setIsAuth(true)
-  //         setIsModalOpen(false)
-  //         console.log(userCredential)
-  //     } catch(error) {
-  //                     if (error.code === "auth/weak-password") {
-  //     alert("Слабкий пароль");
-  //   }
-  //   if (error.code === "auth/email-already-in-use") {
-  //     alert("Email вже використовується");
-  //   }
-
-  //     }
-  // }
-
-  // const handleLogin = async(e) => {
-  //     e.preventDefault()
-  //     try {
-  //         const userCredential = await signInWithEmailAndPassword(
-  //             auth,
-  //             loginEmail.current.value,
-  //             loginPassword.current.value
-
-  //         )
-
-  //         setUser(userCredential.user.displayName)
-  //         setIsModalOpen(false)
-
-  //         console.log(userCredential.user.displayName)
-  //     } catch(error) {
-  //         if (error.code === "auth/invalid-credential") {
-  //             alert("Користувач не зареєстрований");
-  //         }
-  //         if (error.code === "auth/wrong-password") {
-  //             alert("Wrong password");
-  //         }
-  //         if (error.code === "auth/user-not-found") {
-  //         alert("User not found");
-  //   }
-  //   if (error.code === "auth/invalid-email") {
-  //     alert("Invalid email");
-  //   }
-  //   if (error.code === "auth/weak-password") {
-  //     alert("Weak password");
-  //   }
-  //   if (error.code === "auth/email-already-in-use") {
-  //     alert("Email already in use");
-  //   }
-  // }
-
-  // }
 
   return (
     <div className={`${bem('overlay')} ${isOpen ? bem('show') : ''}`} onClick={onClick}>
@@ -131,7 +91,7 @@ export default function SignUpModal({ onClick, isOpen, setIsModalOpen }) {
         <button className={bem('closeBtn')} onClick={onClick}>
           <CloseX />
         </button>
-
+        {isLoading && <p className={bem('loading')}>loading...</p>}
         {!isLoginModal ? (
           <>
             <SignUpForm
@@ -157,6 +117,4 @@ export default function SignUpModal({ onClick, isOpen, setIsModalOpen }) {
   );
 }
 
-// валідація форми
 
-// https://www.npmjs.com/package/yup
