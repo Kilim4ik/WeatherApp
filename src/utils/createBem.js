@@ -1,5 +1,5 @@
-const ELEMENT_DIVIDER = "__";
-const MODIFIER_DIVIDER = "--";
+const ELEMENT_DIVIDER = '__';
+const MODIFIER_DIVIDER = '--';
 
 /**
  *
@@ -10,7 +10,7 @@ const MODIFIER_DIVIDER = "--";
 export const createBem = (block, classes = {}) => {
   const getClassName = (className) => classes[className] || className;
 
-  return (element = "", modifiers = {}) => {
+  return (element = '', modifiers = {}) => {
     let base = element ? `${block}${ELEMENT_DIVIDER}${element}` : block;
     base = getClassName(base);
 
@@ -19,13 +19,11 @@ export const createBem = (block, classes = {}) => {
     for (const [key, value] of Object.entries(modifiers || {})) {
       if (value === true) {
         classList.push(getClassName(`${base}${MODIFIER_DIVIDER}${key}`));
-      } else if (typeof value === "string" || typeof value === "number") {
-        classList.push(
-          getClassName(`${base}${MODIFIER_DIVIDER}${key}-${value}`)
-        );
+      } else if (typeof value === 'string' || typeof value === 'number') {
+        classList.push(getClassName(`${base}${MODIFIER_DIVIDER}${key}-${value}`));
       }
     }
 
-    return classList.join(" ");
+    return classList.join(' ');
   };
 };
