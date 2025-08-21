@@ -17,7 +17,6 @@ const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Fri
 
 export default function Card() {
   const {cardsArr,handleAddingNewCard, deleteCardByName,handleSearch,inputValue,setInputValue } = useContext(WeatherContext);
-  const [favorites, setFavorites] = useState([]);
   const [time, setTime] = useState(timeNow());
   const date = new Date();
   const dayOfWeek = date.getDay();
@@ -34,19 +33,16 @@ export default function Card() {
   };
   const handleDelete = (cityName) => {
     deleteCardByName(cityName)
-    setFavorites(prev => prev.filter(name => name !== cityName));
   };
 
-  const handleAddToFavorites = (e, cityName) => {
+  const handleAddToFavorites = (e) => {
     const className = bem("icon-heart--active");
     const isActive = e.target.classList.contains(className);
 
     if (isActive) {
       e.target.classList.remove(className);
-      setFavorites(prev => prev.filter(name => name !== cityName));
     } else {
       e.target.classList.add(className);
-      setFavorites(prev => [...prev, cityName]);
     }
   };
   return (
