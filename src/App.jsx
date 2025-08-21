@@ -1,13 +1,16 @@
-import MySwiper from './views/swiper/Swiper';
-import News from '../src/views/news/News';
 
-function App() {
+import React from 'react';
+import Statistic from './components/Statistic';
+
+const App = () => {
   return (
-    <div className="App">
-      <MySwiper />
+    <div className="app-container">
+      <Statistic />
+    <MySwiper />
       <News />
     </div>
   );
-}
+};
+
 
 export default App;
