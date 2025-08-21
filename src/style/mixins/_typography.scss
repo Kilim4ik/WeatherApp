@@ -1,24 +1,25 @@
-@use "../variables" as *;
+@use '../variables' as *;
+@use './components' as *;
 
 @mixin h1-header {
   font-weight: 600;
   font-size: 14px;
-  color: $color-secondary;
-  @include media("M") {
+  color: $color-main;
+  @include media('M') {
     font-size: 20px;
   }
-  @include media("L") {
+  @include media('L') {
     font-size: 40px;
   }
 }
 @mixin h2-header {
   font-weight: 600;
   font-size: 10px;
-  color: $color-secondary;
-  @include media("M") {
+  color: $color-main;
+  @include media('M') {
     font-size: 12px;
   }
-  @include media("L") {
+  @include media('L') {
     font-size: 16px;
   }
 }

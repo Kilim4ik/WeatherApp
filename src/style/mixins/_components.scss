@@ -1,13 +1,20 @@
+@use '../variables' as *;
 @mixin btn($padding, $size: 10px, $family: $font-main, $weight: 500) {
   background-color: $color-primary;
   color: $color-main;
+  padding: $padding;
   border: none;
+  transition: all 0.3s;
+  &:hover,
+  &:focus {
+    box-shadow: 2px 2px 3px grey;
+  }
 }
-@mixin btn-main($padding, $size, $family, $weight) {
+@mixin btn-main($padding, $size, $family: $font-main, $weight: 500) {
   @include btn($padding, $size, $family, $weight);
   border-radius: 10px;
 }
-@mixin btn-content($padding, $size, $family, $weight) {
+@mixin btn-content($padding, $size, $family: $font-main, $weight: 500) {
   @include btn($padding, $size, $family, $weight);
   border-radius: 5px;
 }
@@ -19,13 +26,13 @@
 ) {
   padding-top: $padding-top-def;
 
-  @include media("S") {
+  @include media('S') {
     padding-top: $padding-top-mob;
   }
-  @include media("M") {
+  @include media('M') {
     padding-top: $padding-top-tab;
   }
-  @include media("L") {
+  @include media('L') {
     padding-top: $padding-top-desk;
   }
 }
@@ -39,15 +46,15 @@
   align-items: center;
 }
 @mixin media($breakpoint) {
-  @if $breakpoint == "S" {
-    @media (min-width: 580px) {
+  @if $breakpoint == 'S' {
+    @media (min-width: 480px) {
       @content;
     }
-  } @else if $breakpoint == "M" {
+  } @else if $breakpoint == 'M' {
     @media (min-width: 834px) {
       @content;
     }
-  } @else if $breakpoint == "L" {
+  } @else if $breakpoint == 'L' {
     @media (min-width: 1440px) {
       @content;
     }
