@@ -21,19 +21,6 @@ export default function Card() {
   const [time, setTime] = useState(timeNow());
   const date = new Date();
   const dayOfWeek = date.getDay();
-  // const handleSearch = async () => {
-  //   const newCity = inputValue.trim();
-  //   if (!newCity) return;
-  
-  //   setInputValue('');
-  //   try {
-  //     const newWeather = await fetchWeather(newCity);
-
-  
-  //   } catch (err) {
-  //     console.error('Failed to fetch new city weather:', err);
-  //   }
-  // };
   const handleRefresh = async () => {
     try {
       const refreshedCards = await Promise.all(
@@ -80,8 +67,6 @@ export default function Card() {
         {cardsArr.map((item, index) => {
           const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
           const countryName = regionNames.of(item.sys.country);
-
-          // const isFavorite = favorites.includes(item.name);
 
           return (
             <li key={index} className={bem('item')}>
