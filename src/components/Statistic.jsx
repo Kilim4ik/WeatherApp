@@ -17,43 +17,39 @@ const Statistic = () => {
   const chartHeight =
     window.innerWidth <= 480 ? 250 : window.innerWidth <= 768 ? 300 : 400;
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-        const apiKey = 'a5d4690e02b425f2680ee319b8918ff7'; 
-       const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=daily,minutely,current,alerts&units=metric&appid=${apiKey}`;
+useEffect(() => {
+    const apiKey = 'fcc3ac1b514a2bdf8898cc0061159146'; 
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=50&lon=50&units=metric&appid=${apiKey}`;
 
 
-        try {
-          const response = await axios.get(url);
-          const hourlyData = response.data.hourly.slice(0, 7).map((item) => {
-            const date = new Date(item.dt * 1000);
-            const hours = date.getHours();
-            const suffix = hours >= 12 ? 'pm' : 'am';
-            const formattedHour = `${(hours % 12) || 12} ${suffix}`;
+const  getWeather = async () => {
+  try {
+    const response = await axios.get(url);
+    console.log(response.data);
+    const hourlyData = response.data.list.slice(0, 7).map((item) => {
+      const date = new Date(item.dt * 1000);
+      const hours = date.getHours();
+      const suffix = hours >= 12 ? 'pm' : 'am';
+      const formattedHour = `${(hours % 12) || 12} ${suffix}`;
 
-            return {
-              time: formattedHour,
-              temp: item.temp.toFixed(1),
-              feels_like: item.feels_like.toFixed(1),
-              icon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
-              description: item.weather[0].description,
-            };
-          });
+      return {
+        time: formattedHour,
+        temp: item.main.temp.toFixed(1),
+        feels_like: item.main.feels_like.toFixed(1),
+       
+        description: item.weather[0].description,
+      };
+    });
 
-          setData(hourlyData);
-        } catch (err) {
-          console.error(err);
-          setError('Не вдалося завантажити погоду.');
-          
-        }
-      },
-      (err) => {
-        console.error(err);
-        setError('Не вдалося отримати місцезнаходження.');
-      }
-    );
+    setData(hourlyData);
+  } catch (err) {
+    console.error(err);
+    setError('Не вдалося завантажити погоду.');
+    
+  }
+}
+getWeather();
+
   }, []);
 
   const CustomTooltip = ({ active, payload, label }) => {
