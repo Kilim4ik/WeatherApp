@@ -69,7 +69,7 @@ getWeather();
   };
 
   return (
-    <div className="statistic-container">
+    <div className="container">
       <h2>Погодинний прогноз</h2>
       {error ? (
         <p>{error}</p>
