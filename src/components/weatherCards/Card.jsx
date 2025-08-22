@@ -25,7 +25,8 @@ export default function Card() {
     setInputValue,
     handleWeeklyForecast,
     toggleWeeklyForecast,
-    weeklyForecast
+    weeklyForecast,
+    handleChooseCard,
   } = useContext(WeatherContext);
   const [time, setTime] = useState(timeNow());
   const date = new Date();
@@ -68,11 +69,12 @@ export default function Card() {
         </button>
       </div>
       <ul className={bem()}>
-        {cardsArr.map((item, index) => {
+        {cardsArr.map((item) => {
           const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
           const countryName = regionNames.of(item.sys.country);
+
           return (
-            <li key={index} className={bem('item')}>
+            <li key={item.id} className={bem('item')}>
               <div className={bem('country-info-container')}>
                 <p className={bem('country-info')}>{item.name}</p>
                 <p className={bem('country-info')}>{countryName}</p>
@@ -85,8 +87,8 @@ export default function Card() {
                 <button
                   className={bem('button')}
                   onClick={() => {
-                    console.log("click");
-                    console.log(weeklyForecast)
+                    console.log('click');
+                    console.log(weeklyForecast);
                     toggleWeeklyForecast();
                     handleWeeklyForecast(item.coord);
                   }}
@@ -122,7 +124,16 @@ export default function Card() {
                   btnClass="heart"
                   imgSrc="/images/weather-cards/sprite.svg#icon-heart"
                 />
-                <button className={`${bem('button')} ${bem('button-more')}`}>See more</button>
+                <button
+                  className={`${bem('button')} ${bem('button-more')}`}
+                  onClick={() => {
+                    console.log(item.id);
+                    
+                    handleChooseCard(item.id);
+                  }}
+                >
+                  See more
+                </button>
                 <Button
                   btnEvent={() => handleDelete(item.name)}
                   btnClass="trash"

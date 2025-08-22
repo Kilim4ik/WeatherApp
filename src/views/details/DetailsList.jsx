@@ -1,42 +1,28 @@
-import axios from 'axios';
 import { createBem } from '@/utils/createBem';
 import styles from './detailsList.module.scss';
 import DetailsItem from './DetailsItem';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { WeatherContext } from '../../context/weatherContext';
 const bem = createBem('details', styles);
 
 const DetailsList = () => {
-  const [weather, setWeather] = useState(null);
+  const { choosenCard } = useContext(WeatherContext);
 
-  const renderedData = weather && [
-    { name: 'Feels Like', value: weather.main?.feels_like, unit: '°C' },
+  const renderedData = choosenCard && [
+    { name: 'Feels Like', value: choosenCard.main?.feels_like, unit: '°C' },
     {
-      value: [weather.main?.temp_min, weather.main?.temp_max],
+      value: [choosenCard.main?.temp_min, choosenCard.main?.temp_max],
       unit: '°C',
     },
-    { name: 'Humidity', value: weather.main?.humidity, unit: '%' },
+    { name: 'Humidity', value: choosenCard.main?.humidity, unit: '%' },
     {
       name: 'Pressure',
-      value: weather.main?.pressure,
+      value: choosenCard.main?.pressure,
       unit: 'Pa',
     },
-    { name: 'Wind Speed', value: weather.wind?.speed, unit: 'm/s' },
-    { name: 'Visibility', value: weather.visibility, unit: 'm' },
+    { name: 'Wind Speed', value: choosenCard.wind?.speed, unit: 'm/s' },
+    { name: 'Visibility', value: choosenCard.visibility, unit: 'm' },
   ];
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const res = await axios.get(
-          'https://api.openweathermap.org/data/2.5/weather?units=metric&q=Alicante&appid=4aaa32b5801e2c1473c7b233f129d675'
-        );
-        setWeather(res.data);
-      } catch {
-        console.log('error');
-      }
-    };
-    fetchWeather();
-  }, []);
 
   return (
     <section className={bem()}>

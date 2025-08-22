@@ -7,16 +7,14 @@ import Cards from './views/weather-cards/Cards';
 import { WeatherContext } from './context/weatherContext';
 import { useContext } from 'react';
 const App = () => {
-  const {weeklyForecast} = useContext(WeatherContext)
+  const { weeklyForecast, choosenCard } = useContext(WeatherContext);
   return (
     <div className="App">
-    {/* <MySwiper />
+      {/* <MySwiper />
       <News /> */}
       <Cards />
-      <DetailsList />
-      {
-        weeklyForecast && <Forecast/>
-      }
+      {choosenCard && <DetailsList />}
+      {weeklyForecast && <Forecast />}
     </div>
   );
 };

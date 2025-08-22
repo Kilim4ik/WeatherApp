@@ -29,7 +29,10 @@ export const WeatherProvider = ({ children }) => {
     setCardsArray((prev) => prev.slice(0, -1));
   };
 
-  const getCard = (id) => cardsArr.find((card) => card.dt === id);
+  const getCard = (id) => {
+    console.log(id, cardsArr);
+    return cardsArr.find((card) => card.id === id)
+  };
 
   const toggleDailyForecast = () => setDailyForecast((prev) => !prev);
   const toggleWeeklyForecast = () => setWeeklyForecast((prev) => !prev);
