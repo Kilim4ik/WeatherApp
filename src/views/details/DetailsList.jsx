@@ -1,0 +1,41 @@
+import { createBem } from '@/utils/createBem';
+import styles from './detailsList.module.scss';
+import DetailsItem from './DetailsItem';
+import { useContext } from 'react';
+import { WeatherContext } from '../../context/weatherContext';
+const bem = createBem('details', styles);
+
+const DetailsList = () => {
+  const { choosenCard } = useContext(WeatherContext);
+
+  const renderedData = choosenCard && [
+    { name: 'Feels Like', value: choosenCard.main?.feels_like, unit: '°C' },
+    {
+      value: [choosenCard.main?.temp_min, choosenCard.main?.temp_max],
+      unit: '°C',
+    },
+    { name: 'Humidity', value: choosenCard.main?.humidity, unit: '%' },
+    {
+      name: 'Pressure',
+      value: choosenCard.main?.pressure,
+      unit: 'Pa',
+    },
+    { name: 'Wind Speed', value: choosenCard.wind?.speed, unit: 'm/s' },
+    { name: 'Visibility', value: choosenCard.visibility, unit: 'm' },
+  ];
+
+  return (
+    <section className={bem()}>
+      <div className="container">
+        <ul className={bem('list')}>
+          {renderedData ? (
+            renderedData.map((elem, id) => <DetailsItem key={id} data={elem} />)
+          ) : (
+            <li className={bem('error')}>An error has happened, restart the page and try again</li>
+          )}
+        </ul>
+      </div>
+    </section>
+  );
+};
+export default DetailsList;
